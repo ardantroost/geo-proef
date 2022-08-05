@@ -8,14 +8,13 @@ Config.set('graphics', 'resizable',0)
 
 from kivy.app import App
 from kivy.uix.screenmanager import Screen, ScreenManager
-from plyer import sms, gps, email
+from plyer import gps
 from kivy.lang import Builder
 from kivy_garden.mapview import MapView,MapMarker,MapMarkerPopup
-from kivy.uix.camera import Camera
+
 
 from kivy.properties import StringProperty,ListProperty,NumericProperty
 
-#Builder.load_file("main.kv")
 Builder.load_file("geodisplay.kv")
 Builder.load_file("geomenu.kv")
 Builder.load_file("geoadmin.kv")
