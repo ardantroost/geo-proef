@@ -1,0 +1,93 @@
+#:import geodisplay geodisplay
+#: import MapMarkerPopup kivy_garden.mapview.MapMarkerPopup
+
+
+<GeodisplayScreen>:
+
+	BoxLayout:
+
+		MapView:
+			id: _geoview
+			lat: 52.059386
+			lon: 5.289238
+			zoom:12
+			double_tap_zoom: True
+
+			MapMarkerPopup:
+
+				id:  _geomark1
+				lat: 52.059386
+				lon: 5.289238
+				popup_size: 150,150
+
+				Bubble:
+
+					BoxLayout:
+						orientation: "vertical"
+						padding: "5dp"
+						canvas:
+							Color:
+								rgba:1,0,0,0
+						AsyncImage:
+							#source: "http://upload.wikimedia.org/wikipedia/commons/9/9d/France-Lille-VieilleBourse-FacadeGrandPlace.jpg"
+							source: "https://kunstvanmarie.nl/onewebstatic/01c90a26f2-Marie%20in%20atelier.jpg"
+							#source:"home.png"
+							mipmap: True
+						Label:
+							text: "Me,Myself and I\n Arnhemsebovenweg 163\n 3971 ME Driebergen"
+							font_size:10
+							markup: True
+							halign: "left"
+							valign: "center"
+
+			MapMarker:
+				id: _geomark2
+				lat: 52.091137
+				lon:  5.244847
+				#source:".png"
+
+
+	BoxLayout:
+		orientation: "vertical"
+		size_hint:(.25,.5)
+		pos_hint:{"center_x":.8, "center_y":.5}
+
+		BoxLayout:
+			orientation:"horizontal"
+
+			Button:
+				size_hint:(.05,.15)
+				#pos_hint:{"center_x":.5,"center_y":.05}
+				text: "+"
+				on_release:
+					_geoview.zoom +=1 if _geoview.zoom <20 else _geoview.zoom == 6
+					print(str(_geoview.zoom))
+			Button:
+				size_hint:(.05,.15)
+				#pos_hint:{"center_x":.5,"center_y":.05}
+				text: "-"
+				on_release:
+					_geoview.zoom -=1 if _geoview.zoom >7 else _geoview.zoom == 10
+
+	BoxLayout:
+		orientation: "vertical"
+		size_hint:(1,.1)
+		pos_hint_y:{"center_y":.05}
+
+		Label:
+			id:_distance
+			text: ""
+			font_size:12
+			color:1,0,0,1
+			background_color: [1,1,1,1]
+
+		Button:
+
+			pos_hint:{"center_x":.5,"center_y":.05}
+			text: "Get Distance"
+			on_release:
+				root.compute_distance(_geomark1.lat,_geomark1.lon,_geomark2.lat,_geomark2.lon)
+				#root.update_makers(lon=5.265666,lat=52.048109)
+
+
+
